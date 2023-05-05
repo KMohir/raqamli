@@ -30,4 +30,5 @@ class ariza(StatesGroup):
     gender = State()
     about=State()
     document=State()
+    check=State()
 

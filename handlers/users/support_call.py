@@ -20,7 +20,7 @@ cb_data = callback_data.CallbackData("/ask", "param1", "param2")
 @dp.message_handler(text="Texnik yordamga habar yozish")
 async def ask_support(message: types.Message, state: FSMContext):
     if not db.user_exists(message.from_user.id):
-        await bot.send_message(message.from_user.id, 'Assalomu aleykum, Raqamli yordamchi botiga hush kelibsiz! ')
+        await bot.send_message(message.from_user.id, 'Assalomu aleykum, Raqamli Yordamchi botiga hush kelibsiz! ')
         await bot.send_message(message.from_user.id, 'Tilni tanlang: ', reply_markup=langMenu)
         await RegistrationStates.lang.set()
     else:
@@ -64,24 +64,26 @@ async def get_support_message(message: types.Message, state: FSMContext):
         lang = db.get_lang(message.from_user.id)
         for support_id in support_ids:
             if str(second_id) == support_id:
-
-                await message.answer('javob yuborildi')
-            else:
                 await message.answer(
                     _('Savolingiz / Murojatingiz bizning operatorlarga yuborildi, yaqin orada sizga javob beramiz!',
                       lang),
                     reply_markup=ReplyKeyboardRemove())
 
+
+            else:
+                await message.answer('javob yuborildi')
 
     except:
         for support_id in support_ids:
             if str(second_id) == support_id:
-                await message.answer('javob yuborildi')
-            else:
                 await message.answer(
                     _('Savolingiz / Murojatingiz bizning operatorlarga yuborildi, yaqin orada sizga javob beramiz!',
                       lang),
                     reply_markup=ReplyKeyboardRemove())
+            else:
+                await message.answer(
+                    _('Javob yuborildi',
+                      lang))
 
 
 
@@ -148,16 +150,16 @@ async def exit_support(call: types.CallbackQuery, state: FSMContext, callback_da
             await second_state.reset_state()
             await bot.send_message(user_id, "Пользователь завершил сеанс техподдержки")
 
-    await call.message.answer("Raqamli yordamchi bu sizni  bilimingzini sinash uchun qilingan platforma")
+    await call.message.answer("Raqamli Yordamchi bu sizni  bilimingzini sinash uchun qilingan platforma")
     await state.reset_state()
 
 @dp.message_handler(Command("about"))
-@dp.message_handler(text="Raqamli yordamchi haqida bilish")
-@dp.message_handler(text="Узнать про Raqamli yordamchi")
+@dp.message_handler(text="Raqamli Yordamchi haqida bilish")
+@dp.message_handler(text="Узнать про Raqamli Yordamchi")
 async def bot_help(message: types.Message):
     try:
         lang = db.get_lang(message.from_user.id)
-        text = (_("Raqamli yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini", lang))
+        text = (_("Raqamli Yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini", lang))
     except Exception as e:
-        text = ("Raqamli yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini")
+        text = ("Raqamli Yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini")
     await message.answer(text)

@@ -17,13 +17,13 @@ global lang
 async def bot_start(message: types.Message):
 
     if not db.user_exists(message.from_user.id):
-        await bot.send_message(message.from_user.id,'Assalomu aleykum, Raqamli yordamchi botiga hush kelibsiz!\nЗдраствуйте, добро пожаловать в бот поддержки ProTestim!')
+        await bot.send_message(message.from_user.id,'Assalomu aleykum, Raqamli Yordamchi botiga hush kelibsiz!\nЗдравствуйте, добро пожаловать в бот поддержки Raqamli Yordamchi!')
         await bot.send_message(message.from_user.id,'Tilni tanlang:\nВыберите язык:',reply_markup=langMenu)
         await RegistrationStates.lang.set()
     else:
 
         lang = db.get_lang(message.from_user.id)
-        text = _("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli yordamchi haqida bilish",lang)
+        text = _("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli Yordamchi haqida bilish",lang)
         markup = get_lang_for_button(message)
         await bot.send_message(message.from_user.id, text, reply_markup=markup)
     # else:
@@ -93,11 +93,11 @@ async def process_name(message: Message, state: FSMContext):
         db.update(lan,message.from_user.id,name,contact)
 
         lang = data.get('lang')
-        await message.answer(_("Ro'yxatdan muvaffaqiyatli o'tdingiz!",lang), reply_markup=ReplyKeyboardRemove())
+        await message.answer(_("Tabriklaymiz, ro'yxatdan muvaffaqiyatli o'tdingiz! 🎉!",lang), reply_markup=ReplyKeyboardRemove())
 
         lang = data.get('lang')
         text = (
-            _("Buyruqlar ro'yxati: \n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli yordamchi haqida bilish",
+            _("Buyruqlar ro'yxati:  \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli Yordamchi haqida bilish",
               lang))
 
         await message.answer(text, reply_markup=get_lang_for_button(message))
@@ -117,12 +117,12 @@ async def process_name(message: Message, state: FSMContext):
     data = await state.get_data()
     db.update(lan,message.from_user.id,name,contact)
     lang = db.get_lang(message.from_user.id)
-    await message.answer(_("Ro'yxatdan muvaffaqiyatli o'tdingiz!",lang), reply_markup=ReplyKeyboardRemove())
+    await message.answer(_("Tabriklaymiz, ro'yxatdan muvaffaqiyatli o'tdingiz! 🎉",lang), reply_markup=ReplyKeyboardRemove())
 
 
     lang = db.get_lang(message.from_user.id)
     text = (
-        _("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli yordamchi haqida bilish",
+        _("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli Yordamchi haqida bilish",
           lang))
 
     await message.answer(text, reply_markup=get_lang_for_button(message))

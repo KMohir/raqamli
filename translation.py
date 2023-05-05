@@ -22,18 +22,18 @@ translations={
         "Biz haqimizda":"О нас",
         "Yana savol bolsa /ask buyrugini ishlating":"Снова запустите команду / ask, если у вас есть вопрос",
         "Telefon raqam noto'g'ri kiritildi, iltimos telefon raqamni +998XXXXXXXX formatda kiriting yoki 'Kontakni yuborish' tugmasiga bosing.":'Номер телефона вставлен неправильно, пожалуйста отправьте номер телефона в формате +998XXXXXXXXX или нажмите на кнопку "Отправить контакт"',
-        "Ro'yxatdan muvaffaqiyatli o'tdingiz!":"Вы успешно прошли регистрацию!",
+        " Tabriklaymiz, ro'yxatdan muvaffaqiyatli o'tdingiz! 🎉":"Поздравляем,вы успешно прошли регистрацию! 🎉",
         "Buyruqlar ro'yxati bilan tanishish uchun /help ni bosing.":"Чтобы ознакомиться с командами нажмите на /help",
-        "Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli yordamchi haqida bilish":"Список команд:\n/apply - Оставить заявку\n/ask - Написать в техническую поддержку\n/change_language - Изменить язык\n/about - Узнать про Цифровой помощник",
+        "Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli Yordamchi haqida bilish":"Список команд:\n/apply - Оставить заявку\n/ask - Написать в техническую поддержку\n/change_language - Изменить язык\n/about - Узнать про Цифровой помощник",
         "Savolingizni yoki murojatingizni 1 ta habar orqali yuboring.":"Отправьте свой вопрос или обращение 1-им сообщением",
         "Savolingiz / Murojatingiz bizning operatorlarga yuborildi, yaqin orada sizga javob beramiz!":"Ваш вопрос / обращение было отправлено нашим операторам, вам скоро ответят!",
         "Iltimos operator javobini kuting!":"Пожалуйста ожидайте ответа оператора!",
         "Yana savolingiz yoki murojatingiz bo'lsa, /ask orqali berishingiz mumkin.":"Если у вас еще есть вопросы или обращение, нажмите на /ask.",
-        "Raqamli yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini":
-        "Raqamli yordamchi - это ДТМ-симулятор платформа, в которой вы можете безопасно пройти тестовые экзамены сколько вам угодно и ознакомиться со следующей информацией:\n1. Рейтинг Высших Учебных заведений\n2. Насколько вы готовы поступить в вами предпочитаемое Высшее Учебное заведение\n3. Свои актуальные знания\n4. В какие Университеты вы можете поступить на Грант или Контракт основе с вашими актуальными знаниями\n5. В какой области или по какому предмету вам нужно улучшить свои знания",
+        "Raqamli Yordamchi - DTM imtihon simulyator platformasi bo'lib, unda havfsiz va hohlagan marobata test topshirib, quyidagi ma'lumotlarga ega bo'ling:\n1. Oliy Ta'lim muassasalarining reytingi\n2. Siz kirmoqchi bo'lgan Ta'lim Muassasasiga qanchalik tayyor ekanligizni\n3. Hozirgi bilimingiz darajasi\n4. Bilimingiz darajasi bilan qaysi Ta'lim Muassasalariga Grant yoki Kontrakt asosida kirishingizni\n5. Qaysi fanda yoki yo'nalishda bilimingizni kuchaytirish kerak ekanligini":
+        "Raqamli Yordamchi - это ДТМ-симулятор платформа, в которой вы можете безопасно пройти тестовые экзамены сколько вам угодно и ознакомиться со следующей информацией:\n1. Рейтинг Высших Учебных заведений\n2. Насколько вы готовы поступить в вами предпочитаемое Высшее Учебное заведение\n3. Свои актуальные знания\n4. В какие Университеты вы можете поступить на Грант или Контракт основе с вашими актуальными знаниями\n5. В какой области или по какому предмету вам нужно улучшить свои знания",
         "Texnik yordamga habar yozish":"Написать в техническую поддержку",
         "Tilni o'zgartish":"Изменить язык",
-        "Raqamli yordamchi haqida bilish":"Узнать про Raqamli yordamchi",
+        "Raqamli Yordamchi haqida bilish":"Узнать про Raqamli yordamchi",
         "Familiyangizni kiriting":"Введите свою фамилию",
         "Ism  kiriting":"Введите имя",
         "Emailingizni kiriting":"Введите свой адрес электронной почты",
@@ -69,6 +69,12 @@ translations={
         "Surxondaryo viloyati":"Сурхандарьинская область",
         "Toshkent viloyati":"Ташкентская область",
         "Toshkent shahri":"Город Ташкент",
+        "Elektron pochta manzilingizni kiriting (shart emas)":"Введите свой адрес эл. почты (необязательно)",
+        "O'tkazib yuborish":"Пропустить",
+        "Tasdiqlash":"Подтвердить",
+        "Qayta toldirish":"Занаво пополнить",
+        "Tabriklaymiz, sizni arizangiz yuborildi! 🎉":"Поздравляем вас, ваша заявка отправлена! 🎉",
+
     }
 
 }

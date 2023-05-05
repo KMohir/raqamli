@@ -13,7 +13,7 @@ from translation import _
 @dp.message_handler(Command("help"))
 async def bot_help(message: types.Message,state:FSMContext):
     lang = db.get_lang(message.from_user.id)
-    text = (_("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli yordamchi haqida bilish", lang))
+    text = (_("Buyruqlar ro'yxati: \n/apply - Ariza qoldirish\n/ask - Texnik yordamga habar yozish\n/change_language - Tilni o'zgartish\n/about - Raqamli Yordamchi haqida bilish", lang))
 
     
     await message.answer(text)

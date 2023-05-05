@@ -33,7 +33,7 @@ def get_lang_for_button(message):
                 KeyboardButton(text=_("Tilni o'zgartirish",lang))
             ],
             [
-                KeyboardButton(text=_("Raqamli yordamchi haqida bilish", lang))
+                KeyboardButton(text=_("Raqamli Yordamchi haqida bilish", lang))
             ],
 
         ],
@@ -60,6 +60,29 @@ def direction(message):
                 KeyboardButton(text=_("Boshqa", lang))
             ],
         ],
+        resize_keyboard=True
+    )
+    return button
+def gmail(message):
+    lang = db.get_lang(message.from_user.id)
+    button=ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text=_("O'tkazib yuborish",lang)),
+            ]],
+        resize_keyboard=True
+    )
+    return button
+def check(message):
+    lang = db.get_lang(message.from_user.id)
+    button=ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text=_("Tasdiqlash",lang)),
+            ],
+        [
+            KeyboardButton(text=_("Qayta toldirish", lang)),
+        ]],
         resize_keyboard=True
     )
     return button

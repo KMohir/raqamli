@@ -7,7 +7,7 @@ from aiogram.dispatcher.filters.builtin import CommandStart
 from aiogram.types import ParseMode, Message, ReplyKeyboardRemove
 from aiogram.types import InputFile
 from db import db
-from keyboards.default.reply import key, get_lang_for_button, direction, region, gender
+from keyboards.default.reply import key, get_lang_for_button, direction, region, gender, gmail, check
 from keyboards.inline.support import langMenu, support_keyboard
 from loader import dp, bot
 
@@ -45,7 +45,8 @@ async def register_command_handler(message: types.Message, state: FSMContext):
 
         data['fename'] = fename
 
-    await message.answer(_("Emailingizni kiriting",lang))
+    await bot.send_message(message.from_user.id, _("Elektron pochta manzilingizni kiriting (shart emas)", lang),
+                           reply_markup=gmail(message))
     await ariza.email.set()
 
 @dp.message_handler(state=ariza.email)
@@ -192,13 +193,16 @@ async def process_name(message: Message, state: FSMContext):
     region=all_data['region']
     gender=all_data['gender']
     about=all_data['about']
+    if email =="O'tkazib yuborish" or email=="Пропустить":
+        email ="Email kiritilmadi "
     if lang=='uz':
         text=f"""Ism:{name}\nFamiliya: {fename}\nEmail: {email}\nTelephone: {phone}\nYo'nalish: {direction}\nYashash joyi: {region}\nJinsi: {gender}\nO'zi haqida: {about}"""
     else:
             text = f"""Имя:{name}\nФамилия: {fename}\nEmail: {email}\nTelephone: {phone}\nНаправление: {direction}\nСреда обитания: {region}\nПол: {gender}\nО себе: {about}"""
-    await message.answer(_("Sizni arizangiz yuborildi",lang), reply_markup=get_lang_for_button(message))
-    await message.copy_to(-1001972594621,caption=text)
-    await state.finish()
+
+
+    await message.copy_to(message.from_user.id,caption=text,reply_markup=check(message))
+    await ariza.check.set()
 @dp.message_handler(state=ariza.document,content_types = ['text', 'audio', 'photo', 'sticker', 'video', 'video_note', 'voice', 'contact', 'location', 'venue', 'poll', 'dice', 'game', 'invoice', 'successful_payment', 'passport_data', 'animation', 'passport_file', 'proxi', 'message_auto_delete_timer_changed'])
 async def process_name(message: Message, state: FSMContext):
     lang = db.get_lang(message.from_user.id)
@@ -207,5 +211,28 @@ async def process_name(message: Message, state: FSMContext):
     await ariza.document.set()
 
 
+@dp.message_handler(state=ariza.check,text=['Tasdiqlash','Qayta toldirish','Подтвердить','Занаво пополнить'])
+async def check_data(message: Message, state: FSMContext):
+    all_data = await state.get_data()
+    lang = db.get_lang(message.from_user.id)
+    name=all_data['name']
+    fename=all_data['fename']
+    email=all_data['email']
+    phone=all_data['phone']
+    direction=all_data['direction']
+    region=all_data['region']
+    gender=all_data['gender']
+    about=all_data['about']
+    if email =="O'tkazib yuborish" or email=="Пропустить":
+        email ="Email kiritilmadi"
+
+    text=f"""Ism:{name}\nFamiliya: {fename}\nEmail: {email}\nTelephone: {phone}\nYo'nalish: {direction}\nYashash joyi: {region}\nJinsi: {gender}\nO'zi haqida: {about}"""
 
 
+    if message.text=='Tasdiqlash'or message.text=='Подтвердить':
+        await message.copy_to(-1001972594621, caption=text)
+        await message.answer(_("Tabriklaymiz, sizni arizangiz yuborildi! 🎉", lang), reply_markup=get_lang_for_button(message))
+        await state.finish()
+    else:
+        await bot.send_message(message.from_user.id, _("Ism  kiriting", lang), reply_markup=ReplyKeyboardRemove())
+        await ariza.name.set()
