@@ -70,7 +70,7 @@ async def process_name(message: Message, state: FSMContext):
         async with state.proxy() as data:
 
             data['phone'] = phone
-
+        await message.answer(_("Siz qatnashmoqchi bo'lgan", lang), reply_markup=ReplyKeyboardRemove())
         await message.answer(_("Yo'nalishni tanlang", lang), reply_markup=direction(message))
 
         await ariza.direction.set()
@@ -86,7 +86,7 @@ async def process_name(message: Message, state: FSMContext):
     contact = str(message.contact.phone_number)
     async with state.proxy() as data:
         data['phone'] = contact
-
+        await message.answer(_("Siz qatnashmoqchi bo'lgan", lang), reply_markup=ReplyKeyboardRemove())
     await message.answer(_("Yo'nalishni tanlang",lang), reply_markup=direction(message))
 
 
@@ -96,7 +96,8 @@ async def process_name(message: Message, state: FSMContext):
 @dp.message_handler(text=["Boshqa","Другой"],state=ariza.direction)
 async def process_name(message: Message, state: FSMContext):
     lang = db.get_lang(message.from_user.id)
-    await bot.send_message(message.from_user.id, _("Yo'nalishni yozing",lang),reply_markup=ReplyKeyboardRemove())
+    await message.answer(_("Siz qatnashmoqchi bo'lgan", lang), reply_markup=ReplyKeyboardRemove())
+    await bot.send_message(message.from_user.id, _("Yo'nalishni yozing",lang),reply_markup=direction(message))
     await ariza.directiontwo.set()
 
 @dp.message_handler(state=ariza.directiontwo)
@@ -107,50 +108,53 @@ async def process_name(message: Message, state: FSMContext):
         data['direction'] = direction
     await bot.send_message(message.from_user.id,_('Hududni tanlang',lang),reply_markup=region(message))
     await ariza.Region.set()
-@dp.message_handler(text=["Su'niy intelekt","Kiberxavsizlik","Tadbirkorlik va Moliya","O'yin sanoati",
-                          "Искусственный интеллект","Кибербезопасность","Предпринимательство и финансы","Игровая индустрия","Другой"],state=ariza.direction)
-async def process_name(message: Message, state: FSMContext):
-    lang = db.get_lang(message.from_user.id)
-    direction=message.text
+@dp.callback_query_handler(text=[1,2,3,4,5,6,7,8,9,10],state=ariza.direction)
+async def process_name(call: types.CallbackQuery, state: FSMContext):
+    await call.answer()
+    lang = db.get_lang(call.message.from_user.id)
+
     async with state.proxy() as data:
-        data['direction'] = direction
-    await bot.send_message(message.from_user.id,_('Hududni tanlang',lang),reply_markup=region(message))
+        data['direction'] = call.data
+    await bot.send_message(call.message.chat.id,_('Hududni tanlang',lang),reply_markup=region(call.message))
     await ariza.Region.set()
 @dp.message_handler(state=ariza.direction)
 async def process_name(message: Message, state: FSMContext):
     await message.answer("Yo'nalishni tanlang", reply_markup=direction(message))
     await ariza.direction.set()
-@dp.message_handler(state=ariza.direction)
-async def process_name(message: Message, state: FSMContext):
-    lang = db.get_lang(message.from_user.id)
-    direction=message.text
+@dp.callback_query_handler(text='Boshqa',state=ariza.direction)
+async def process_name(call: types.CallbackQuery, state: FSMContext):
+    lang = db.get_lang(call.message.from_user.id)
+    direction=call.message.text
     async with state.proxy() as data:
         data['direction'] = direction
-    await bot.send_message(message.from_user.id,_('Hududni tanlang',lang),reply_markup=region(message))
+    await bot.send_message(call.message.from_user.id,_('Hududni tanlang',lang),reply_markup=region(call.message))
     await ariza.Region.set()
-@dp.message_handler(text=["Andijon viloyati","Buxoro viloyati","Fargʻona viloyati","Jizzax viloyati","Xorazm viloyati","Namangan viloyati","Navoiy viloyati",
-"Qashqadaryo viloyati","Qoraqalpogʻiston Respublikasi","Samarqand viloyati","Sirdaryo viloyati","Surxondaryo viloyati","Toshkent viloyati","Toshkent shahri"],state=ariza.Region)
-async def process_name(message: Message, state: FSMContext):
+@dp.callback_query_handler(text=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],state=ariza.Region)
+async def process_name(call: types.CallbackQuery, state: FSMContext):
 
-    lang = db.get_lang(message.from_user.id)
-    regiontext=message.text
+    lang = db.get_lang(call.message.from_user.id)
+    regiontext=call.data
     async with state.proxy() as data:
         data['region'] = regiontext
 
-    await message.answer(_("Jinsi",lang), reply_markup=gender(message))
+    await call.message.answer(_("Jinsi",lang), reply_markup=gender(call.message))
 
 
     await ariza.gender.set()
-
-@dp.message_handler(text=['Erkak','Ayol',"Мужчина","Женщина"],state=ariza.gender)
+@dp.message_handler(state=ariza.Region)
 async def process_name(message: Message, state: FSMContext):
-
     lang = db.get_lang(message.from_user.id)
-    gender=message.text
+    await bot.send_message(message.from_user.id,_('Hududni tanlang',lang),reply_markup=region(message))
+    await ariza.Region.set()
+@dp.callback_query_handler(text=[1,9,10,11,19,20],state=ariza.gender)
+async def process_name(call: types.CallbackQuery, state: FSMContext):
+
+    lang = db.get_lang(call.message.from_user.id)
+    gender=call.data
     async with state.proxy() as data:
         data['gender'] = gender
 
-    await message.answer(_("Oʻzingiz haqizda aytib bering",lang), reply_markup=ReplyKeyboardRemove())
+    await call.message.answer(_("Oʻzingiz haqizda aytib bering",lang), reply_markup=ReplyKeyboardRemove())
 
 
     await ariza.about.set()

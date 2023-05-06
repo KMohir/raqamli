@@ -1,21 +1,40 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from db import db
 from translation import _
+import requests
 def gender(message):
     lang = db.get_lang(message.from_user.id)
-    button=ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                KeyboardButton(text=_("Erkak",lang)),
-                KeyboardButton(text=_("Ayol", lang))
-            ],
+    button = ReplyKeyboardMarkup()
+    keyboard = InlineKeyboardMarkup(row_width=2)
+
+    def get_data(url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception if status code is not 2xx
+            data = response.json()  # Assuming the response is in JSON format
+            return data
+        except requests.exceptions.RequestException as e:
+            print(f"Error occurred: {e}")
+            return None
+
+        # Example usage
+
+    url = "https://raqamli-office.uz/api/form-request/details"  # Replace with your API endpoint URL
+    data = get_data(url)
+
+    if data:
+        for key in range(len(data)):
+            buttons = [
+                InlineKeyboardButton(data['genders'][key]['translation']['value'], callback_data=data['genders'][key]['translation']['translatable_id']),
+
+            ]
+
+            keyboard.add(*buttons)
+
+    return keyboard
 
 
-        ],
-        resize_keyboard=True
-    )
-    return button
 
 def get_lang_for_button(message):
     lang = db.get_lang(message.from_user.id)
@@ -42,27 +61,41 @@ def get_lang_for_button(message):
     return button
 def direction(message):
     lang = db.get_lang(message.from_user.id)
-    button=ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                KeyboardButton(text=_("Su'niy intelekt",lang)),
+    button=ReplyKeyboardMarkup()
+    keyboard = InlineKeyboardMarkup(row_width=2)
 
 
-                KeyboardButton(text=_("Kiberxavsizlik", lang))
-            ],
+    def get_data(url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception if status code is not 2xx
+            data = response.json()  # Assuming the response is in JSON format
+            return data
+        except requests.exceptions.RequestException as e:
+            print(f"Error occurred: {e}")
+            return None
 
-            [
-                KeyboardButton(text=_("Tadbirkorlik va Moliya", lang)),
-                KeyboardButton(text=_("O'yin sanoati", lang))
-            ],
+        # Example usage
+    url = "https://raqamli-office.uz/api/industries"  # Replace with your API endpoint URL
+    data = get_data(url)
+    if data:
+        for key in range(len(data)):
 
-            [
-                KeyboardButton(text=_("Boshqa", lang))
-            ],
-        ],
-        resize_keyboard=True
-    )
-    return button
+
+
+            buttons = [
+                InlineKeyboardButton(data[key]['translation']['value'], callback_data=data[key]['translation']['id']),
+
+
+            ]
+
+            keyboard.add(*buttons)
+
+
+
+
+
+    return keyboard
 def gmail(message):
     lang = db.get_lang(message.from_user.id)
     button=ReplyKeyboardMarkup(
@@ -88,42 +121,35 @@ def check(message):
     return button
 def region(message):
     lang = db.get_lang(message.from_user.id)
-    button=ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                KeyboardButton(text=_("Andijon viloyati",lang)),
-                KeyboardButton(text=_("Buxoro viloyati", lang))
-            ],
+    button = ReplyKeyboardMarkup()
+    keyboard = InlineKeyboardMarkup(row_width=2)
 
-            [
-                KeyboardButton(text=_("Fargʻona viloyati", lang)),
-                KeyboardButton(text=_("Jizzax viloyati", lang))
-            ],
+    def get_data(url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception if status code is not 2xx
+            data = response.json()  # Assuming the response is in JSON format
+            return data
+        except requests.exceptions.RequestException as e:
+            print(f"Error occurred: {e}")
+            return None
 
-            [
-                KeyboardButton(text=_("Xorazm viloyati", lang)),
-                KeyboardButton(text=_("Namangan viloyati", lang))
-            ],
-            [
-                KeyboardButton(text=_("Navoiy viloyati", lang)),
-                KeyboardButton(text=_("Qashqadaryo viloyati", lang))
-            ],
-            [
-                KeyboardButton(text=_("Qoraqalpogʻiston Respublikasi", lang)),
-                KeyboardButton(text=_("Samarqand viloyati", lang))
-            ],
-            [
-                KeyboardButton(text=_("Sirdaryo viloyati", lang)),
-                KeyboardButton(text=_("Surxondaryo viloyati", lang))
-            ],
-            [
-                KeyboardButton(text=_("Toshkent viloyati", lang)),
-                KeyboardButton(text=_("Toshkent shahri", lang))
-            ],
-        ],
-        resize_keyboard=True
-    )
-    return button
+        # Example usage
+
+    url = "https://raqamli-office.uz/api/regions"  # Replace with your API endpoint URL
+    data = get_data(url)
+    if data:
+        for key in range(len(data)):
+            buttons = [
+                InlineKeyboardButton(data[key]['translation']['value'], callback_data=data[key]['translation']['id']),
+
+            ]
+
+            keyboard.add(*buttons)
+
+    return keyboard
+
+
 # def get_project_for_user(message):
 #     lang = db.get_lang(message.from_user.id)
 #     button=ReplyKeyboardMarkup(
